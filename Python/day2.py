@@ -9,7 +9,7 @@ import sys
 
 
 if __name__ == '__main__':
-    n = int(raw_input().strip())
+    n = int(input().strip())
 
     if (n>=1 and n<=100):
         if(n%2!=0):
