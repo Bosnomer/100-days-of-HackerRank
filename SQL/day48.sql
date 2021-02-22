@@ -1,6 +1,10 @@
-# Weather Observation Station 20
+# Contest Leaderboard
 
-SELECT ROUND(s.lat_n,4) FROM station s
-WHERE (SELECT ROUND(COUNT(s.id)/2)-1 FROM station) = 
-    (SELECT COUNT(s1.id) FROM station s1 
-        WHERE s1.lat_n > s.lat_n);
+SELECT h.hacker_id, name, SUM(score) AS total_score
+FROM hackers AS h INNER JOIN
+(SELECT hacker_id,  MAX(score) AS score 
+    FROM submissions GROUP BY challenge_id, hacker_id) max_score
+ON h.hacker_id=max_score.hacker_id
+GROUP BY h.hacker_id, name
+HAVING total_score > 0
+ORDER BY total_score DESC, h.hacker_id;
